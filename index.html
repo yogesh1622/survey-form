@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         .container {
             width: 90%;
             max-width: 500px;
@@ -22,32 +22,47 @@
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         h2 {
             text-align: center;
             color: #333;
         }
-        
+
         /* Form Field Styling */
         .form-group {
-            display: flex;
-            flex-direction: column;
             margin-bottom: 15px;
         }
-        
+
         label {
             font-weight: bold;
             margin-bottom: 5px;
+            display: block;
         }
-        
-        select, input {
+
+        input[type="text"], input[type="tel"], select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
         }
-        
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .radio-group input {
+            accent-color: #28a745;
+        }
+
         /* Submit Button */
         .submit-btn {
             width: 100%;
@@ -60,7 +75,7 @@
             border-radius: 4px;
             margin-top: 10px;
         }
-        
+
         .submit-btn:hover {
             background: #218838;
         }
@@ -102,34 +117,35 @@
 
             <div class="form-group">
                 <label>શુલ્ક ૨૦ રૂપિયા:</label>
-                <select name="fee" required>
-                    <option value="yes">હાં</option>
-                    <option value="no">ના</option>
-                </select>
+                <div class="radio-group">
+                    <label><input type="radio" name="fee" value="yes" required> હાં</label>
+                    <label><input type="radio" name="fee" value="no" required> ના</label>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>હોદ્દો:</label>
-                <select name="position" required>
-                    <option value="હરિભક્ત">હરિભક્ત</option>
-                    <option value="રજિસ્ટર્ડ કાર્યકર">રજિસ્ટર્ડ કાર્યકર</option>
-                    <option value="સંપર્ક કાર્યકર">સંપર્ક કાર્યકર</option>
-                </select>
+                <div class="radio-group">
+                    <label><input type="radio" name="position" value="હરિભક્ત" required> હરિભક્ત</label>
+                    <label><input type="radio" name="position" value="રજિસ્ટર્ડ કાર્યકર" required> રજિસ્ટર્ડ કાર્યકર</label>
+                    <label><input type="radio" name="position" value="સંપર્ક કાર્યકર" required> સંપર્ક કાર્યકર</label>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>પ્રવૃત્તિ:</label>
-                <select name="activity" required>
-                    <option value="સંયુકત">સંયુકત</option>
-                    <option value="મહિલા">મહિલા</option>
-                    <option value="યુવા">યુવા</option>
-                    <option value="યુવતી">યુવતી</option>
-                </select>
+                <div class="radio-group">
+                    <label><input type="radio" name="activity" value="સંયુકત" required> સંયુકત</label>
+                    <label><input type="radio" name="activity" value="મહિલા" required> મહિલા</label>
+                    <label><input type="radio" name="activity" value="યુવા" required> યુવા</label>
+                    <label><input type="radio" name="activity" value="યુવતી" required> યુવતી</label>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>ઝોન:</label>
                 <select id="zone" name="zone" required>
+                    <option value="">Select</option>
                     <option value="બોચાસણ">બોચાસણ - પૂ. યોગીરાજ સ્વામી</option>
                     <option value="બદલપુર">બદલપુર - પૂ. દીવ્યમંગલ સ્વામી</option>
                     <option value="ખંભાત">ખંભાત - પૂ.ગુણવલ્લભ સ્વામી</option>
@@ -138,12 +154,16 @@
 
             <div class="form-group">
                 <label>ક્ષેત્ર:</label>
-                <select id="area" name="area" required></select>
+                <select id="area" name="area" required>
+                    <option value="">Select</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label>મંડળ:</label>
-                <select id="mandal" name="mandal" required></select>
+                <select id="mandal" name="mandal" required>
+                    <option value="">Select</option>
+                </select>
             </div>
 
             <button type="submit" class="submit-btn">સબમિટ</button>
@@ -152,11 +172,11 @@
     </div>
 
     <script>
-        // Zone-Area-Mandal Dependencies
+        // Zone-Area Dependencies
         const areaData = {
-            "બોચાસણ": ["બોચાસણ", "બોરસદ", "બોચાસણ યુવા", "બોરસદ યુવતી"],
-            "બદલપુર": ["બદલપુર ૧", "બદલપુર ૨", "બદલપુર યુવા ૧", "બદલપુર યુવા ૨"],
-            "ખંભાત": ["ખંભાત", "ઉન્ડેલ", "તારાપુર", "ખંભાત યુવા", "તારાપુર યુવા"]
+            "બોચાસણ": ["Select", "બોચાસણ", "બોરસદ", "બોચાસણ યુવા", "બોરસદ યુવતી"],
+            "બદલપુર": ["Select", "બદલપુર ૧", "બદલપુર ૨", "બદલપુર યુવા ૧", "બદલપુર યુવા ૨"],
+            "ખંભાત": ["Select", "ખંભાત", "ઉન્ડેલ", "તારાપુર", "ખંભાત યુવા", "તારાપુર યુવા"]
         };
 
         document.getElementById("zone").addEventListener("change", function() {
@@ -164,7 +184,7 @@
             const areaSelect = document.getElementById("area");
             areaSelect.innerHTML = "";
 
-            areaData[selectedZone].forEach(area => {
+            areaData[selectedZone]?.forEach(area => {
                 let option = new Option(area, area);
                 areaSelect.add(option);
             });
