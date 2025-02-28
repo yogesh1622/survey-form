@@ -80,7 +80,7 @@
 
             var data = { name, father_husband, surname, mobile, fee, position, activity, zone, area, mandal };
 
-            let response = await fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
+            let response = await fetch("https://script.google.com/macros/s/AKfycbwSxUH8r7jdU2TlXq9eblL66BuJQnAUtPOVyj_A0B2B5LVLq5AI6SQ7OR9GSuxJ26U7Rw/exec", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
