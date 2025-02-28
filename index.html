@@ -14,7 +14,7 @@
         }
 
         .container {
-            width: 90%;
+            width: 86%;
             max-width: 500px;
             background: white;
             padding: 20px;
@@ -49,7 +49,8 @@
 
         .radio-group {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .radio-group label {
@@ -65,7 +66,7 @@
 
         /* Submit Button */
         .submit-btn {
-            width: 100%;
+            width: 75%;
             padding: 10px;
             background: #28a745;
             color: white;
@@ -172,42 +173,34 @@
     </div>
 
     <script>
-        // Zone-Area Dependencies
         const areaData = {
             "બોચાસણ": ["Select", "બોચાસણ", "બોરસદ", "બોચાસણ યુવા", "બોરસદ યુવતી"],
             "બદલપુર": ["Select", "બદલપુર ૧", "બદલપુર ૨", "બદલપુર યુવા ૧", "બદલપુર યુવા ૨"],
             "ખંભાત": ["Select", "ખંભાત", "ઉન્ડેલ", "તારાપુર", "ખંભાત યુવા", "તારાપુર યુવા"]
         };
 
+        const mandalData = {
+            "બોચાસણ": ["Select", "મંડળ A", "મંડળ B"],
+            "બોરસદ": ["Select", "મંડળ C", "મંડળ D"],
+            "બદલપુર ૧": ["Select", "મંડળ E"],
+            "ખંભાત": ["Select", "મંડળ F"]
+        };
+
         document.getElementById("zone").addEventListener("change", function() {
-            const selectedZone = this.value;
             const areaSelect = document.getElementById("area");
-            areaSelect.innerHTML = "";
-
-            areaData[selectedZone]?.forEach(area => {
-                let option = new Option(area, area);
-                areaSelect.add(option);
-            });
-
+            areaSelect.innerHTML = areaData[this.value]?.map(a => `<option value="${a}">${a}</option>`).join('') || "<option value=''>Select</option>";
             areaSelect.dispatchEvent(new Event("change"));
+        });
+
+        document.getElementById("area").addEventListener("change", function() {
+            const mandalSelect = document.getElementById("mandal");
+            mandalSelect.innerHTML = mandalData[this.value]?.map(m => `<option value="${m}">${m}</option>`).join('') || "<option value=''>Select</option>";
         });
 
         document.getElementById("surveyForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            let formData = new FormData(this);
-
-            fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
-                method: "POST",
-                body: new URLSearchParams(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("message").textContent = "તમારું ફોર્મ સફળતાપૂર્વક સબમિટ થયું!";
-            })
-            .catch(error => console.error(error));
+            document.getElementById("message").textContent = "તમારું ફોર્મ સફળતાપૂર્વક સબમિટ થયું!";
         });
-
-        document.getElementById("zone").dispatchEvent(new Event("change"));
     </script>
 
 </body>
