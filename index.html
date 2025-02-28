@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>હરિભક્ત શિબિર બોચાસણ (30/03/2025)</title>
+    <script>
+        function validateMobile(input) {
+            return /^[6-9]\d{9}$/.test(input);
+        }
+
+        function updateAreaDropdown() {
+            var zone = document.getElementById("zone").value;
+            var areaDropdown = document.getElementById("area");
+            areaDropdown.innerHTML = ""; 
+
+            var areas = {
+                "ખંભાત - પૂ.ગુણવલ્લભ સ્વામી": ["ખંભાત", "ઉન્ડેલ", "તારાપુર", "ખંભાત યુવા", "તારાપુર યુવા"],
+                "બદલપુર - પૂ. દીવ્યમંગલ સ્વામી": ["બદલપુર ૧", "બદલપુર ૨", "બદલપૂર યુવા ૧", "બદલપુર યુવા ૨"],
+                "બોચાસણ - પૂ. યોગીરાજ સ્વામી": ["બોચાસણ", "બોરસદ", "બોચાસણ યુવા", "બોરસદ યુવતી"]
+            };
+
+            areas[zone]?.forEach(area => {
+                var option = document.createElement("option");
+                option.value = area;
+                option.textContent = area;
+                areaDropdown.appendChild(option);
+            });
+
+            updateMandalDropdown(); 
+        }
+
+        function updateMandalDropdown() {
+            var area = document.getElementById("area").value;
+            var mandalDropdown = document.getElementById("mandal");
+            mandalDropdown.innerHTML = ""; 
+
+            var mandals = {
+                "ખંભાત": ["મંડળ 1", "મંડળ 2", "મંડળ 3"],
+                "ઉન્ડેલ": ["મંડળ A", "મંડળ B"],
+                "તારાપુર": ["મંડળ X", "મંડળ Y"],
+                "ખંભાત યુવા": ["યુવા મંડળ 1", "યુવા મંડળ 2"],
+                "તારાપુર યુવા": ["યુવા મંડળ A"],
+
+                "બદલપુર ૧": ["મંડળ ૧-A", "મંડળ ૧-B"],
+                "બદલપુર ૨": ["મંડળ ૨-A", "મંડળ ૨-B"],
+                "બદલપૂર યુવા ૧": ["યુવા ૧-A"],
+                "બદલપુર યુવા ૨": ["યુવા ૨-A", "યુવા ૨-B"],
+
+                "બોચાસણ": ["મંડળ B1", "મંડળ B2"],
+                "બોરસદ": ["મંડળ C1", "મંડળ C2"],
+                "બોચાસણ યુવા": ["યુવા B1", "યુવા B2"],
+                "બોરસદ યુવતી": ["યુવતી C1"]
+            };
+
+            mandals[area]?.forEach(mandal => {
+                var option = document.createElement("option");
+                option.value = mandal;
+                option.textContent = mandal;
+                mandalDropdown.appendChild(option);
+            });
+        }
+
+        async function submitForm() {
+            var name = document.getElementById("name").value;
+            var father_husband = document.getElementById("father_husband").value;
+            var surname = document.getElementById("surname").value;
+            var mobile = document.getElementById("mobile").value;
+            var fee = document.querySelector('input[name="fee"]:checked').value;
+            var position = document.getElementById("position").value;
+            var activity = document.getElementById("activity").value;
+            var zone = document.getElementById("zone").value;
+            var area = document.getElementById("area").value;
+            var mandal = document.getElementById("mandal").value;
+
+            if (!validateMobile(mobile)) {
+                alert("મોબાઈલ નંબર 10 અંકનો અને ભારતીય હોવો જોઈએ.");
+                return;
+            }
+
+            var data = { name, father_husband, surname, mobile, fee, position, activity, zone, area, mandal };
+
+            let response = await fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            let result = await response.json();
+            if (result.status === "success") {
+                alert("તમારું ફોર્મ સફળતાપૂર્વક સબમિટ થયું.");
+                document.getElementById("surveyForm").reset();
+            } else {
+                alert("Error submitting form.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>હરિભક્ત શિબિર બોચાસણ (30/03/2025)</h2>
+    <form id="surveyForm" onsubmit="event.preventDefault(); submitForm();">
+        <label>નામ:</label><input type="text" id="name" required><br>
+        <label>પિતા / પતિ નું નામ:</label><input type="text" id="father_husband" required><br>
+        <label>અટક:</label><input type="text" id="surname" required><br>
+        <label>મોબાઈલ નંબર:</label><input type="text" id="mobile" required><br>
+
+        <label>શુલ્ક ૨૦ રૂપિયા:</label>
+        <input type="radio" name="fee" value="Yes" required>Yes
+        <input type="radio" name="fee" value="No">No<br>
+
+        <label>હોદ્દો:</label>
+        <select id="position" required>
+            <option value="હરિભક્ત">હરિભક્ત</option>
+            <option value="રજિસ્ટર્ડ કાર્યકર">રજિસ્ટર્ડ કાર્યકર</option>
+            <option value="સંપર્ક કાર્યકર">સંપર્ક કાર્યકર</option>
+        </select><br>
+
+        <label>પ્રવૃત્તિ:</label>
+        <select id="activity" required>
+            <option value="સંયુકત">સંયુકત</option>
+            <option value="મહિલા">મહિલા</option>
+            <option value="યુવા">યુવા</option>
+            <option value="યુવતી">યુવતી</option>
+        </select><br>
+
+        <label>ઝોન:</label>
+        <select id="zone" required onchange="updateAreaDropdown()">
+            <option value="">-- પસંદ કરો --</option>
+            <option value="ખંભાત - પૂ.ગુણવલ્લભ સ્વામી">ખંભાત</option>
+            <option value="બદલપુર - પૂ. દીવ્યમંગલ સ્વામી">બદલપુર</option>
+            <option value="બોચાસણ - પૂ. યોગીરાજ સ્વામી">બોચાસણ</option>
+        </select><br>
+
+        <label>ક્ષેત્ર:</label>
+        <select id="area" required onchange="updateMandalDropdown()"></select><br>
+
+        <label>મંડળ:</label>
+        <select id="mandal" required></select><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
