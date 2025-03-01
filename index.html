@@ -190,38 +190,33 @@
 
     </script>
     <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCtSJKwhR2i6be6HOV9Hi6aaVSIQVNHwc8",
+        authDomain: "shibir-2025.firebaseapp.com",
+        projectId: "shibir-2025",
+        storageBucket: "shibir-2025.firebasestorage.app",
+        messagingSenderId: "607017196527",
+        appId: "1:607017196527:web:092dc03ad13baad2b2f41a",
+        measurementId: "G-GEDV49MMEH"
+    };
 
-        // Your web app's Firebase configuration
-       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-          const firebaseConfig = {
-            apiKey: "AIzaSyCtSJKwhR2i6be6HOV9Hi6aaVSIQVNHwc8",
-            authDomain: "shibir-2025.firebaseapp.com",
-            projectId: "shibir-2025",
-            storageBucket: "shibir-2025.firebasestorage.app",
-            messagingSenderId: "607017196527",
-            appId: "1:607017196527:web:092dc03ad13baad2b2f41a",
-            measurementId: "G-GEDV49MMEH"
-          };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    
-        // Initialize Firestore
-        const db = firebase.firestore();
-        
-        // Firebase Firestore Integration
-         document.getElementById("surveyForm").addEventListener("submit", async function(event) {
-        event.preventDefault(); // Prevent page reload
+    // Handle Form Submission
+    document.getElementById("surveyForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent default page reload
 
         // Collect form data
         let formData = {
             name: document.getElementById("name").value,
-            fatherOrHusbandName: document.getElementById("fatherHusbandName").value,
+            fatherOrHusbandName: document.getElementById("father_husband").value, // Fixed ID
             surname: document.getElementById("surname").value,
             mobile: document.getElementById("mobile").value,
-            feePaid: document.querySelector('input[name="feePaid"]:checked').value,
-            role: document.querySelector('input[name="role"]:checked').value,
-            activity: document.querySelector('input[name="activity"]:checked').value,
+            feePaid: document.querySelector('input[name="feePaid"]:checked')?.value || "No", 
+            role: document.querySelector('input[name="role"]:checked')?.value || "Not Selected",
+            activity: document.querySelector('input[name="activity"]:checked')?.value || "Not Selected",
             zone: document.getElementById("zone").value,
             area: document.getElementById("area").value,
             mandal: document.getElementById("mandal").value
@@ -229,14 +224,15 @@
 
         try {
             await db.collection("surveyResponses").add(formData);
-            alert("સફળતાપૂર્વક સબમિટ થયું! ✅");
+            alert("તમારું ફોર્મ સફળતાપૂર્વક સબમિટ થયું! ✅");
             document.getElementById("surveyForm").reset(); // Clear form after submission
         } catch (error) {
             console.error("Firestore Error:", error);
-            alert("તમારી એન્ટ્રી સંગ્રહવામાં સમસ્યા આવી. 🔴");
+            alert("તમારા ડેટા સંગ્રહવામાં સમસ્યા આવી. 🔴");
         }
     });
-    </script>
+</script>
+
 
 </body>
 </html>
