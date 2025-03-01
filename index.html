@@ -190,13 +190,13 @@
 
     </script>
     <script>
-   document.getElementById("surveyForm").addEventListener("submit", function(event) {
+  document.getElementById("surveyForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent page reload
 
     // Collect form data
     let formData = {
         name: document.getElementById("name").value,
-        fatherOrHusbandName: document.getElementById("fatherHusbandName").value,
+        fatherOrHusbandName: document.getElementById("father_husband").value,
         surname: document.getElementById("surname").value,
         mobile: document.getElementById("mobile").value,
         feePaid: document.querySelector('input[name="feePaid"]:checked')?.value || "Not Selected",
@@ -207,12 +207,16 @@
         mandal: document.getElementById("mandal").value
     };
 
-    // Log data to the console
+    // Log data to console
     console.log("Form Data Submitted:", JSON.stringify(formData, null, 2));
 
-    // Alert user and reset form
-    alert("Form data logged in console.");
+    // Show confirmation message
+    alert("સફળતાપૂર્વક સબમિટ થયું! ✅");
+    
+    // Clear form fields
     document.getElementById("surveyForm").reset();
+});
+
 });
 
 </script>
