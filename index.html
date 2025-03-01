@@ -107,42 +107,8 @@
         <p id="message"></p>
     </form>
 
-    <script type="module">
-                  // Import the functions you need from the SDKs you need
-                  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-                  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-                  // TODO: Add SDKs for Firebase products that you want to use
-                  // https://firebase.google.com/docs/web/setup#available-libraries
-                
-                  // Your web app's Firebase configuration
-                  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-                  const firebaseConfig = {
-                    apiKey: "AIzaSyCtSJKwhR2i6be6HOV9Hi6aaVSIQVNHwc8",
-                    authDomain: "shibir-2025.firebaseapp.com",
-                    projectId: "shibir-2025",
-                    storageBucket: "shibir-2025.firebasestorage.app",
-                    messagingSenderId: "607017196527",
-                    appId: "1:607017196527:web:092dc03ad13baad2b2f41a",
-                    measurementId: "G-GEDV49MMEH"
-                  };
-                
-                  // Initialize Firebase
-                  const app = initializeApp(firebaseConfig);
-                  const analytics = getAnalytics(app);
-    
-        // Gujarati Validation for "અટક" (Surname)
-        document.getElementById("surname").addEventListener("input", function() {
-            const surnameField = document.getElementById("surname").value;
-            const gujaratiRegex = /^[\u0A80-\u0AFF\s]+$/; // Only Gujarati characters allowed
-            const errorField = document.getElementById("surnameError");
-
-            if (!surnameField.match(gujaratiRegex)) {
-                errorField.textContent = "અટક ફીલ્ડમાં ફક્ત ગુજરાતી લખો!";
-            } else {
-                errorField.textContent = "";
-            }
-        });
-
+    <script>
+     
         // Dynamic Dropdown Logic for Area & Mandal
         const zoneDropdown = document.getElementById("zone");
         const areaDropdown = document.getElementById("area");
@@ -187,34 +153,54 @@
             }
         });
 
+    </script>
+    <script>
+
+        // Your web app's Firebase configuration
+       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          const firebaseConfig = {
+            apiKey: "AIzaSyCtSJKwhR2i6be6HOV9Hi6aaVSIQVNHwc8",
+            authDomain: "shibir-2025.firebaseapp.com",
+            projectId: "shibir-2025",
+            storageBucket: "shibir-2025.firebasestorage.app",
+            messagingSenderId: "607017196527",
+            appId: "1:607017196527:web:092dc03ad13baad2b2f41a",
+            measurementId: "G-GEDV49MMEH"
+          };
+
+         // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    
+        // Initialize Firestore
+        const db = firebase.firestore();
+        
         // Firebase Firestore Integration
-        document.getElementById("surveyForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+         document.getElementById("surveyForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent page reload
 
-            const formData = {
-                name: document.getElementById("name").value,
-                father_husband: document.getElementById("father_husband").value,
-                surname: document.getElementById("surname").value,
-                mobile: document.getElementById("mobile").value,
-                fee: document.querySelector('input[name="fee"]:checked').value,
-                position: document.querySelector('input[name="position"]:checked').value,
-                activity: document.querySelector('input[name="activity"]:checked').value,
-                zone: document.getElementById("zone").value,
-                area: document.getElementById("area").value,
-                mandal: document.getElementById("mandal").value,
-                timestamp: new Date().toISOString()
-            };
+        // Collect form data
+        let formData = {
+            name: document.getElementById("name").value,
+            fatherOrHusbandName: document.getElementById("fatherHusbandName").value,
+            surname: document.getElementById("surname").value,
+            mobile: document.getElementById("mobile").value,
+            feePaid: document.querySelector('input[name="feePaid"]:checked').value,
+            role: document.querySelector('input[name="role"]:checked').value,
+            activity: document.querySelector('input[name="activity"]:checked').value,
+            zone: document.getElementById("zone").value,
+            area: document.getElementById("area").value,
+            mandal: document.getElementById("mandal").value
+        };
 
-            db.collection("surveyResponses").add(formData)
-            .then(() => {
-                document.getElementById("message").textContent = "તમારું ફોર્મ સફળતાપૂર્વક સબમિટ થયું!";
-                document.getElementById("surveyForm").reset();
-            })
-            .catch(error => {
-                console.error("Error saving data: ", error);
-                document.getElementById("message").textContent = "Error submitting form.";
-            });
-        });
+        try {
+            await db.collection("surveyResponses").add(formData);
+            alert("સફળતાપૂર્વક સબમિટ થયું! ✅");
+            document.getElementById("surveyForm").reset(); // Clear form after submission
+        } catch (error) {
+            console.error("Firestore Error:", error);
+            alert("તમારી એન્ટ્રી સંગ્રહવામાં સમસ્યા આવી. 🔴");
+        }
+    });
     </script>
 
 </body>
