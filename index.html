@@ -60,7 +60,7 @@
         .radio-group label {
             display: flex;
             align-items: center;
-            font-size: 8px;
+            font-size: 16px;
             cursor: pointer;
         }
         
@@ -88,33 +88,33 @@
 
         <label for="mobile">મોબાઈલ નંબર:</label>
         <input type="text" id="mobile" pattern="[6-9]\d{9}" required title="10 અંકનો ભારતીય મોબાઇલ નંબર દાખલ કરો">
+        
+         <div class="form-group">
+          <label>શુલ્ક ૨૦ રૂપિયા</label>
+         <div class="radio-group">
+                <label><input type="radio" name="feePaid" value="Yes" required> હા</label>
+                <label><input type="radio" name="feePaid" value="No" required> ના</label>
+            </div>
+        </div>
 
-       <div class="form-group">
-    <label>શુલ્ક ૨૦ રૂપિયા</label>
-    <div class="radio-group">
-        <label><input type="radio" name="feePaid" value="Yes" required> હા</label>
-        <label><input type="radio" name="feePaid" value="No" required> ના</label>
+    <div class="form-group">
+        <label>હોદ્દો (કાર્યકર ના હોય તો હરિભક્ત પસંદ કરવું.)</label>
+        <div class="radio-group">
+            <label><input type="radio" name="role" value="હરિભક્ત" required> હરિભક્ત</label>
+            <label><input type="radio" name="role" value="રજિસ્ટર્ડ કાર્યકર" required> રજિસ્ટર્ડ કાર્યકર</label>
+            <label><input type="radio" name="role" value="સંપર્ક કાર્યકર" required> સંપર્ક કાર્યકર</label>
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label>હોદ્દો (કાર્યકર ના હોય તો હરિભક્ત પસંદ કરવું.)</label>
-    <div class="radio-group">
-        <label><input type="radio" name="role" value="હરિભક્ત" required> હરિભક્ત</label>
-        <label><input type="radio" name="role" value="રજિસ્ટર્ડ કાર્યકર" required> રજિસ્ટર્ડ કાર્યકર</label>
-        <label><input type="radio" name="role" value="સંપર્ક કાર્યકર" required> સંપર્ક કાર્યકર</label>
+    
+    <div class="form-group">
+        <label>પ્રવૃત્તિ</label>
+        <div class="radio-group">
+            <label><input type="radio" name="activity" value="સંયુકત" required> સંયુકત</label>
+            <label><input type="radio" name="activity" value="મહિલા" required> મહિલા</label>
+            <label><input type="radio" name="activity" value="યુવા" required> યુવા</label>
+            <label><input type="radio" name="activity" value="યુવતી" required> યુવતી</label>
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label>પ્રવૃત્તિ</label>
-    <div class="radio-group">
-        <label><input type="radio" name="activity" value="સંયુકત" required> સંયુકત</label>
-        <label><input type="radio" name="activity" value="મહિલા" required> મહિલા</label>
-        <label><input type="radio" name="activity" value="યુવા" required> યુવા</label>
-        <label><input type="radio" name="activity" value="યુવતી" required> યુવતી</label>
-    </div>
-</div>
 
 
         <label for="zone">ઝોન:</label>
