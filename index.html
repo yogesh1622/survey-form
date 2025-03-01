@@ -221,6 +221,7 @@
             area: document.getElementById("area").value,
             mandal: document.getElementById("mandal").value
         };
+        console.log(formData);
 
         try {
             await db.collection("surveyResponses").add(formData);
